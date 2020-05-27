@@ -65,16 +65,23 @@ class App extends React.Component {
             generationStatus: 1,
             updateGenerationProgressInterval: updateGenerationProgressInterval
         });
-
+        let success = false;
         try {
             await generateImage(this.state.resize, this.state.fp16, "uploaded-image", "output");
+            success = true;
         } catch (error) {
             alert("Error encountered while generating image: " + error);
+            this.setState({
+                generationStatus: 0
+            });
         }
 
-        this.setState({
-            generationStatus: 2
-        });
+        if (success) {
+            this.setState({
+                generationStatus: 2
+            });
+        }
+        
     }
     
     componentWillUnmount = () => {
@@ -144,7 +151,7 @@ class App extends React.Component {
                             <Row>
                                 <Col/>
                                 <Col xs="12" md="8" lg="6" style={{textAlign: "center"}}>
-                                    <ProgressBar now={this.state.generationProgress} />
+                                    <ProgressBar now={this.state.generationProgress} style={{"margin": "10px"}} />
                                     <p>Generating image...</p>
                                     <p>This may take 15 to 30 seconds depending on your device.</p>
                                     <p>Memory usage (MB): {this.state.bytesUsed / 1000000} </p>
@@ -164,7 +171,6 @@ class App extends React.Component {
                                 <canvas id="output"></canvas>
                             </Col>
                             <Col/>
-                            
                         </Row>
                         <Row className="margin">
                             <Col/>

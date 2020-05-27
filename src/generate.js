@@ -10,7 +10,7 @@ tf.enableProdMode();
 
 let start;
 
-const MODEL_URL = 'model_full/model.json';
+const MODEL_URL = window.location.pathname + '/model_full/model.json';
 
 function mirrorPadFunc(input, pad_arr) {
     return tf.tidy(() => {
@@ -114,7 +114,6 @@ const generate = async (model, long_side_scale_size, img, output) => {
     console.log(`Took ${(end - start)/1000} s to generate the image`);
 
     tf.browser.toPixels((generated.squeeze(0).add(1)).div(2), output);
-    
     // console.log(generated.print());
     generated.dispose();
 }
