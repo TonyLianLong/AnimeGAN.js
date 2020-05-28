@@ -7,6 +7,8 @@ Behind the scene, this project runs [AnimeGAN](https://github.com/TachibanaYoshi
 ## An example of AnimeGAN
 ![AnimeGAN](https://raw.githubusercontent.com/TachibanaYoshino/AnimeGAN/master/result/Hayao/photo_result/1%20(37).jpg)
 
+## Give this repo a star 🌟 if you enjoy it!
+
 ## For developers
 
 In the project directory, you can run:
