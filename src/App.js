@@ -97,7 +97,7 @@ class App extends React.Component {
                     <Row className="margin">
                         <Col/>
                             <Col xs="12">
-                                <h1 style={{"marginBottom": "20px", textAlign: "center"}}>AnimeGAN.js: Photo Animation for Everyone</h1>
+                                <h1 style={{"marginBottom": "20px", textAlign: "center"}}>AnimeGAN.js: Photo Animation for Everyone <a href="https://github.com/TonyLianLong/AnimeGAN.js" style={{"fontSize": "12px"}}>View Source Code</a></h1>
                             </Col>
                         <Col/>
                     </Row>
