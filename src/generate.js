@@ -10,7 +10,7 @@ tf.enableProdMode();
 
 let start;
 
-const MODEL_URL = window.location.pathname + '/model_full/model.json';
+const MODEL_URL = window.location.pathname + 'model_full/model.json';
 
 function mirrorPadFunc(input, pad_arr) {
     return tf.tidy(() => {
