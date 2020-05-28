@@ -4,8 +4,15 @@ This project allows online photo animation. [Click here to have a try.](https://
 
 Behind the scene, this project runs [AnimeGAN](https://github.com/TachibanaYoshino/AnimeGAN) online with [TensorFlow.js](https://www.tensorflow.org/js). The model that AnimeGAN.js uses comes from AnimeGAN's released model. You could use the one in `public` if you want to run it locally. If you want to create another model, you need to export it from TensorFlow and then use tools [TensorFlow.js](https://www.tensorflow.org/js) provides to convert.
 
-## An example of AnimeGAN
-![AnimeGAN](https://raw.githubusercontent.com/TachibanaYoshino/AnimeGAN/master/result/Hayao/photo_result/1%20(37).jpg)
+## A comparison
+
+Original Image             |  Converted Image
+:-------------------------:|:-------------------------:
+![Original Image](https://raw.githubusercontent.com/TonyLianLong/AnimeGAN.js/master/assets/original.png) | ![Converted Image](https://raw.githubusercontent.com/TonyLianLong/AnimeGAN.js/master/assets/converted.png)
+
+
+
+*Source image taken from [AnimeGAN](https://github.com/TachibanaYoshino/AnimeGAN) Github repo*
 
 ## Give this repo a star 🌟 if you enjoy it!
 
