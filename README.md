@@ -1,6 +1,11 @@
 
 # AnimeGAN.js
-This project allows online photo animation. [Click here to have a try.](https://animegan.js.org) I suggest you use a device with WebGL support. See your device's support of Tensorflow.js [here](https://js.tensorflow.org/debug/).
+
+**AnimeGAN.js is now hosted on [https://animegan.js.org/](https://animegan.js.org/) 🥳**
+
+This project allows online photo animation. [Click here to have a try.](https://animegan.js.org)
+
+I suggest you use a device with WebGL support. See your device's support of Tensorflow.js [here](https://js.tensorflow.org/debug/).
 
 Behind the scene, this project runs [AnimeGAN](https://github.com/TachibanaYoshino/AnimeGAN) online with [TensorFlow.js](https://www.tensorflow.org/js). The model that AnimeGAN.js uses comes from AnimeGAN's released model. You could use the one in `public` if you want to run it locally. If you want to create another model, you need to export it from TensorFlow and then use tools [TensorFlow.js](https://www.tensorflow.org/js) provides to convert.
 
