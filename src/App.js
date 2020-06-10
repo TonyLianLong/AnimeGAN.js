@@ -174,9 +174,11 @@ class App extends React.Component {
                         </Row>
                         <Row className="margin">
                             <Col/>
-                            <Col xs="12" md="8" lg="5" xl="4" style={{textAlign: "center", margin: "20px"}}>
+                            <Col xs="12" md="12" lg="12" xl="10" style={{textAlign: "center", margin: "20px"}}>
                                 <p>If you are on a mobile device, long press to save the image.</p>
                                 <p>If you are on a desktop device, right click to save the image.</p>
+                                <p>If it looks good, you could <a href="https://github.com/TonyLianLong/AnimeGAN.js">give AnimeGAN.js a star <span role="img" aria-label="star">🌟</span> on Github</a>.</p>
+                                <p>AnimeGAN.js uses the trained model from AnimeGAN. If you are interested in how the TensorFlow version of AnimeGAN works, <a href="https://github.com/TachibanaYoshino/AnimeGAN">click here</a></p>
                                 <Button variant="primary" onClick={() => window.location.reload()}>Restart</Button>
                             </Col>
                             <Col/>
