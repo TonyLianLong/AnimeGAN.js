@@ -3,7 +3,7 @@
 
 **AnimeGAN.js is now hosted on [https://animegan.js.org/](https://animegan.js.org/) 🥳**
 
-If you are in area that does not provide reliable connection to Github Pages, you can try [this link](https://longlian.gitee.io/) hosted on Gitee instead.
+If you are in an area that does not provide reliable connection to Github Pages, you can try [this link](https://longlian.gitee.io/) hosted on Gitee instead.
 
 This project allows online photo animation. [Click here to have a try.](https://animegan.js.org)
 
