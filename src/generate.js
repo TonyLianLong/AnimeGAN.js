@@ -10,47 +10,17 @@ tf.enableProdMode();
 
 let start;
 
-const MODEL_URL = window.location.href + 'model_full/model.json';
+const MODEL_URL = window.location.href + 'hayao_model/model.json';
 
-function mirrorPadFunc(input, pad_arr) {
-    return tf.tidy(() => {
-        for (let i = 0; i < 4; i++) {
-            if (pad_arr[i][0] !== 0 || pad_arr[i][1] !== 0) {
-                let slice_size = [-1, -1, -1, -1];
-                slice_size[i] = pad_arr[i][0];
-                let slice_begin = [0, 0, 0, 0];
-
-                let padding_left = input.slice(slice_begin, slice_size);
-
-                slice_size = [-1, -1, -1, -1];
-                slice_size[i] = pad_arr[i][1];
-                slice_begin = [0, 0, 0, 0];
-                slice_begin[i] = input.shape[i] - pad_arr[i][1];
-
-                let padding_right = input.slice(slice_begin, slice_size);
-                
-                input = tf.concat([padding_left, input, padding_right], i);
-            }
-
-            if (pad_arr[i][0] > 1 || pad_arr[i][1] > 1) {
-                throw new Error("Only input with no more than length one in padding is supported. We have: " + JSON.stringify(pad_arr));
-            }
-        }
-        return input;
-    });
-}
-
-// For debugging purpose:
-window.mirrorPadFunc = mirrorPadFunc;
-
-const progressesList = [0.00023367749587460492, 0.054088046653978504, 0.1804816724673639, 0.18052037621199904, 0.2528568019649621, 0.37458444400475477, 0.39315031021211105, 0.39319017797911254, 0.4444196766347441, 0.5207431700988491, 0.550593651422125, 0.5542242372745627, 0.5605664132978859, 0.5806242652109398, 0.5927784050567816, 0.5962346785553008, 0.5981026434950807, 0.5989430676647844, 0.6435568450337933, 0.6676838282371483, 0.6684442258671517, 0.7463103400111626, 0.9019785470675509, 0.95];
+const progressesList = [0.00023367749587460492, 0.054088046653978504, 0.1804816724673639, 0.18052037621199904, 0.2528568019649621, 0.37458444400475477, 0.39315031021211105, 0.39319017797911254, 0.4444196766347441, 0.5207431700988491, 0.550593651422125, 0.5542242372745627, 0.5605664132978859, 0.5806242652109398, 0.5927784050567816, 0.5962346785553008, 0.5981026434950807, 0.5989430676647844, 0.6435568450337933, 0.6676838282371483, 0.6684442258671517, 0.7463103400111626, 0.9019785470675509, 0.95, 0.0003492067187373817, 0.02968257109267744, 0.05913233770619662, 0.06867732135168506, 0.10743926713153443, 0.11523821718333595, 0.14980968233833672, 0.19997904759694057, 0.23117484780414665, 0.23344469147593963, 0.23612194298625958, 0.25259285988670604, 0.2669685364747283, 0.2761061122816898, 0.3684712893877272, 0.3961750224075595];
 let num_called = 0;
 
 const mirrorPad = async (node) => {
     let progress = 0.9 * (performance.now() - start)/(15463.61999999499);
     
-    /* progressesList.push(progress);
-    console.log(progressesList); */
+    // Please uncomment the lines below change, and then initial progressesList to an empty array, and copy the logged progresses to the list above.
+    // progressesList.push(progress);
+    // console.log(progressesList);
 
     if (num_called >= progressesList.length) {
         progress = 0.95;
@@ -62,26 +32,13 @@ const mirrorPad = async (node) => {
     window.progress = progress;
 
     let memoryInfo = tf.memory();
-    // console.log("Memory Info:", memoryInfo);
+    console.log("Memory Info:", memoryInfo);
     window.bytesUsed = memoryInfo.numBytes;
-
-    // Use normal pad (not mirror pad):
-    // return tf.pad(node.inputs[0], node.inputs[1].arraySync(), 0);
 
     await tf.nextFrame();
 
-    if (node.attrs.mode !== "reflect") {
-        throw new Error("Only reflect mode is supported. Mode: " + node.attrs.mode);
-    }
-    let pad_tensor = node.inputs[1];
-    // node.inputs[1].print();
-    if (node.inputs[0].shape.length === 4) {
-        let pad_arr = await pad_tensor.array();
-        let input = node.inputs[0];
-        return mirrorPadFunc(input, pad_arr);
-    } else {
-        throw new Error("Only input of rank 4 is supported. We have: " + JSON.stringify(pad_tensor.arraySync()));
-    }
+    // Use mirror pad:
+    return tf.mirrorPad(node.inputs[0], node.inputs[1].arraySync(), node.attrs.mode);
 };
 
 tfc.registerOp('MirrorPad', mirrorPad);
@@ -105,9 +62,9 @@ const generate = async (model, long_side_scale_size, img, output) => {
         )); // Batch size may be larger
         img_tensor.dispose();
     }
-    
+    window.scaled_img_tensor = scaled_img_tensor;
     start = performance.now();
-    let generated = await model.executeAsync({'test': scaled_img_tensor});
+    let generated = await model.executeAsync({'generator_input': scaled_img_tensor});
     scaled_img_tensor.dispose();
     let end = performance.now();
     console.log("Image Generated");
